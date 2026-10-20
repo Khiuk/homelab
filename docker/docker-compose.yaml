@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  # Twitch Drops Miner - Account 1
+  twitch-miner-user1:
+    image: dungfu/twitch-drops-miner:latest
+    container_name: twitch-drops-miner-user1
+    hostname: your_vps_ip             # Masked for security reasons
+    ports:
+      - "5800:5800"
+    user: "1000:1000"
+    volumes:
+      - ./config_user1:/TwitchDropsMiner/config
+      - ./cache_user1:/TwitchDropsMiner/cache
+    environment:
+      - TZ=Europe/Berlin
+      - WEBUI_AUTH=1
+      - SECURE_CONNECTION=1
+    deploy:
+      resources:
+        limits:
+          memory: 250M                # RAM constraint for 1GB VPS stability
+    restart: unless-stopped
+
+  # Twitch Drops Miner - Account 2
+  twitch-miner-user2:
+    image: dungfu/twitch-drops-miner:latest
+    container_name: twitch-drops-miner-user2
+    hostname: your_vps_ip             # Masked for security reasons
+    ports:
+      - "5801:5800"
+    user: "1000:1000"
+    volumes:
+      - ./config_user2:/TwitchDropsMiner/config
+      - ./cache_user2:/TwitchDropsMiner/cache
+    environment:
+      - TZ=Europe/Berlin
+      - WEBUI_AUTH=1
+      - SECURE_CONNECTION=1
+    deploy:
+      resources:
+        limits:
+          memory: 250M                # RAM constraint for 1GB VPS stability
+    restart: unless-stopped
+
+  # ArchiSteamFarm Infrastructure Module
+  asf-farm:
+    image: ghcr.io/justarchinet/archisteamfarm:main
+    container_name: asf-farm
+    hostname: your_vps_ip             # Masked for security reasons
+    ports:
+      - "1242:1242"
+    user: "1000:1000"
+    volumes:
+      - ./config_asf:/app/config
+      - ./plugins_asf:/app/plugins
+      - ./logs_asf:/app/logs
+    environment:
+      - TZ=Europe/Berlin
+      - ASF_ARGS=--path /app
+      - DOTNET_gcServer=0             # Disables Server GC to optimize RAM on low-end systems
+      - DOTNET_GCHighMemHeapCost=100  # Hard ceiling on GC memory consumption
+    restart: unless-stopped

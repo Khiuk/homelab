@@ -1,0 +1,10 @@
+# Ignore live configurations with personal OAuth tokens and passwords
+docker/config_user1/
+docker/config_user2/
+docker/config_asf/
+
+# Ignore persistent runtime caches and logs
+docker/cache_user1/
+docker/cache_user2/
+docker/plugins_asf/
+docker/logs_asf/
