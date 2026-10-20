@@ -28,6 +28,7 @@ To completely eliminate container virtualization overhead, reduce latency, and e
 
 *   **Native 3x-ui (Xray v26.10.10):** Implemented as a high-performance bare-metal service. Direct port binding on Ubuntu guarantees maximum throughout and zero network encapsulation overhead.
 *   **Capacity & Traffic Routing:** The node securely tunnels traffic for **20 configured clients** (supporting up to 6 concurrent active sessions).
+*   **P2P / Torrent Blocking:** To comply with hosting provider terms of service, protect the server from DMCA abuse complaints, and preserve the **3 TB monthly bandwidth limit**, all **P2P/BitTorrent traffic is strictly blocked** on the firewall/Xray level.
 *   **Cryptographic Protocols Used:**
     *   `VLESS + Reality (TCP, Port 443)`: Primary high-speed stealth inbound mimicking standard HTTPS traffic to bypass deep packet inspection (DPI).
     *   `XHTTP + Reality (Port 8443)`: Next-generation transport layer designed for stable performance behind highly restrictive firewalls.
