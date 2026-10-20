@@ -67,9 +67,12 @@ Because the VPN architecture runs natively on the host system via automated inst
 
 ### ⚠️ Security & Privacy Compliance
 
-To adhere to industry-standard security and privacy practices, the following confidential elements have been **completely excluded** from this public repository using targeted `.gitignore` rules:
+To adhere to industry-standard security practices and protect the infrastructure from external vectors, the following hardening guidelines and privacy controls have been strictly implemented:
 
-1.  **Server Identifiers:** The public IP address of the VPS is masked across all public documentation and config templates (replaced with loopback pointers or placeholders).
-2.  **Steam Session States:** No active encryption logs, `.bin` steam-guard tokens, or `ASF.json` credentials are saved to prevent session hijacking.
-3.  **Twitch Tokens:** Personal browser connection tokens (`OAuth`) are externalized completely into runtime-only `.env` files.
-4.  **Database Protection:** The SQLite backend database of the VPN panel (`/etc/x-ui/x-ui.db`), which contains client UUIDs, administrative hashes, and private Reality encryption keys, is omitted from any backup paths connected to this repository.
+1.  **Server Hardening (SSH Security):**
+    *   **Root Login Disabled:** Direct `root` authentication via SSH is completely deactivated (`PermitRootLogin no`) to mitigate automated brute-force scripts.
+    *   **Key-Based Authentication:** Standard password authentication is blocked. Access to the management user (`admin`) is strictly restricted to cryptographic SSH keys secured with a strong **passphrase**.
+2.  **Server Identifiers:** The public IP address of the VPS is dynamically masked across all public deployment manifests and operational guidelines (substituted with local loops or loopback placeholders).
+3.  **Steam Session States:** Critical Steam Guard tokens, binary active sessions (`*.bin`), and plaintext client configuration structures (`ASF.json`) are completely excluded via `.gitignore` to protect account ownership.
+4.  **Twitch Tokens:** Personal browser connection tokens (`OAuth`) are externalized entirely into runtime-only local `.env` files.
+5.  **Database Protection:** The SQLite backend database of the VPN panel (`/etc/x-ui/x-ui.db`), which contains client UUIDs, cryptographic salts, and administrative web-interface hashes, is isolated from any backup logic tied to this public repository.
