@@ -73,7 +73,11 @@ To adhere to industry-standard security practices and protect the infrastructure
 1.  **Server Hardening (SSH Security):**
     *   **Root Login Disabled:** Direct `root` authentication via SSH is completely deactivated (`PermitRootLogin no`) to mitigate automated brute-force scripts.
     *   **Key-Based Authentication:** Standard password authentication is blocked. Access to the management user (`admin`) is strictly restricted to cryptographic SSH keys secured with a strong **passphrase**.
-2.  **Server Identifiers:** The public IP address of the VPS is dynamically masked across all public deployment manifests and operational guidelines (substituted with local loops or loopback placeholders).
-3.  **Steam Session States:** Critical Steam Guard tokens, binary active sessions (`*.bin`), and plaintext client configuration structures (`ASF.json`) are completely excluded via `.gitignore` to protect account ownership.
-4.  **Twitch Tokens:** Personal browser connection tokens (`OAuth`) are externalized entirely into runtime-only local `.env` files.
-5.  **Database Protection:** The SQLite backend database of the VPN panel (`/etc/x-ui/x-ui.db`), which contains client UUIDs, cryptographic salts, and administrative web-interface hashes, is isolated from any backup logic tied to this public repository.
+
+2.  **Automated ChatOps Backups (Zero-Footprint DR):**
+    *   **Native 3x-ui Integration:** Disaster Recovery (DR) for the VPN configuration is handled natively through the 3x-ui panel subsystem rather than resource-heavy local cron scripts.
+    *   **Telegram Cloud Storage:** The database (`x-ui.db`) is automatically backed up and dispatched directly to a private **Telegram Bot**. This ensures off-site storage compliance, meaning zero disk-space overhead on the local 15 GB SSD and instant access to keys even during total node failure.
+3.  **Server Identifiers:** The public IP address of the VPS is dynamically masked across all public deployment manifests and operational guidelines (substituted with local loops or loopback placeholders).
+4.  **Steam Session States:** Critical Steam Guard tokens, binary active sessions (`*.bin`), and plaintext client configuration structures (`ASF.json`) are completely excluded via `.gitignore` to protect account ownership.
+5.  **Twitch Tokens:** Personal browser connection tokens (`OAuth`) are externalized entirely into runtime-only local `.env` files.
+6.  **Database Protection:** The SQLite backend database of the VPN panel (`/etc/x-ui/x-ui.db`), which contains client UUIDs, cryptographic salts, and administrative web-interface hashes, is isolated from any backup logic tied to this public repository.
