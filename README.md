@@ -51,15 +51,16 @@ Application services are decoupled and isolated inside Docker. By leveraging str
 
 ---
 
-### 📂 Repository Architecture
+### 📂 Repository Architecture & Volume Mapping
 
-Because the VPN architecture runs natively on the host system via automated install scripts, this repository specifically tracks the Docker orchestration configs and defensive layout templates:
+Since the application layer relies on native volume bind mounts rather than standard inline environment variables, this repository tracks only the template layout and Docker orchestration manifests. All operational runtime configurations are kept locally on the host machine.
 
 ```text
-├── .gitignore               # Strict exclusion matrix for tokens and sessions
+├── .gitignore               # Strict exclusion matrix for active user configurations
 ├── README.md                # Main architecture documentation (this file)
+├── ssh/
+│   └── sshd_config.example  # Reference hardened SSH service configuration
 └── docker/
-    ├── .env.example         # Template for environment credentials
     └── docker-compose.yml   # Unified multi-service deployment manifest
 ```
 
