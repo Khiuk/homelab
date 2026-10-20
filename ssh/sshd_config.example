@@ -1,0 +1,35 @@
+# ====================================================================
+# Reference SSH Server Configuration (Ubuntu 24.04 LTS)
+# Path on Production Server: /etc/ssh/sshd_config
+# ====================================================================
+
+# Include drop-in configuration files from sshd_config.d
+Include /etc/ssh/sshd_config.d/*.conf
+
+# 1. Core Authentication Hardening
+# --------------------------------------------------------------------
+# Disable direct root login - users must authenticate via standard user
+PermitRootLogin no
+
+# Enforce cryptographic key authentication
+PubkeyAuthentication yes
+
+# Strictly disable plaintext and interactive password prompts
+PasswordAuthentication no
+PermitEmptyPasswords no
+KbdInteractiveAuthentication no
+
+# 2. Operational & Environment Settings
+# --------------------------------------------------------------------
+# Integrate with Pluggable Authentication Modules (PAM)
+UsePAM yes
+
+# Disable GUI forwarding to reduce attack surface
+X11Forwarding no
+PrintMotd no
+
+# Allow client to pass locale environment variables
+AcceptEnv LANG LC_*
+
+# SFTP Subsystem configuration
+Subsystem sftp /usr/lib/openssh/sftp-server
